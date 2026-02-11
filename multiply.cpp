@@ -6,34 +6,37 @@
 template<typename T>
 T multiply(T a, T b) 
 {
-    if constexpr (std::is_same_v<decltype(a), std::string>) 
-    {
-        throw std::invalid_argument("strings can'nt done multiply.");
-    }
     return a * b;
 }
-template <typename T>
-T multiply(const T& s, size_t m) {
-
+template <>
+int multiply<int>(int a, int b) 
+{
+    return a * b;
 };
+template<>
+double multiply<double>(double a, double b) 
+{
+    return a * b;
+}
+//string(overloading)
+std::string multiply(const std::string& s1, size_t count) 
+{
+    std::string res;
+    for(size_t i{}; i < count; ++i) 
+    {
+        res += s1;
+    }
+    return res;
+}
 
 int main(void) 
 {
         int x = 3, y = 6;
         double a = 1.6, b = 1.8;
-        std::string s1 = "Hello1";
-        std::string s2 = "Hello2";
+        std::string s1 = "hello ";
 
-    try
-    {
         std::cout << multiply(x, y) << std::endl;
         std::cout << multiply(a, b) << std::endl;
-        std::cout << multiply(s1, s2) << std::endl;
-    } 
-    catch(std::invalid_argument const& ex)
-    {
-        std::cerr << ex.what() << std::endl;
-    }
-
+        std::cout << multiply(s1, 3) << std::endl;
     return 0;
 }
